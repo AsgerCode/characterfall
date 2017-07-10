@@ -9,11 +9,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 /**
  * Created by codecadet on 04/07/17.
  */
-public class WebServerChat {
+public class Server {
 
     final private Queue<ClientDispatcher> clientDispatchers;
 
-    public WebServerChat(){
+    public Server(){
         clientDispatchers = new ConcurrentLinkedQueue<>();
     }
 
@@ -53,7 +53,7 @@ public class WebServerChat {
 
 
     public static void main(String[] args) {
-        WebServerChat webChat = new WebServerChat();
+        Server webChat = new Server();
         webChat.startChat();
     }
 

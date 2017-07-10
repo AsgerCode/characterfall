@@ -6,7 +6,7 @@ import java.net.Socket;
 /**
  * Created by codecadet on 04/07/17.
  */
-public class ClientChat {
+public class Client {
 
     private Socket socket;
 
@@ -61,8 +61,8 @@ public class ClientChat {
     }
 
     public static void main(String[] args) {
-        ClientChat clientChat = new ClientChat();
-        clientChat.startClient();
+        Client client = new Client();
+        client.startClient();
     }
 
     private class ClientRunnable implements Runnable {
