@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.concurrentchat;
+package org.academiadecodigo.bootcamp.textbasedgame;
 
 import java.io.*;
 import java.net.Socket;
