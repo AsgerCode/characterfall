@@ -1,7 +1,31 @@
 package org.academiadecodigo.bootcamp.textbasedgame.view;
-
-/**
- * Created by codecadet on 11/07/2017.
- */
 public class Cell {
+
+    private int col;
+    private int row;
+    private char character;
+
+    public Cell(int col, int row, char character){
+        this.col = col;
+        this.row = row;
+        this.character = character;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public char getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(char character) {
+        this.character = character;
+    }
+
+
 }
