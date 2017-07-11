@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.textbasedgame;
+package org.academiadecodigo.bootcamp.textbasedgame.serverclient;
 
 import java.io.BufferedReader;
 import java.io.IOException;
