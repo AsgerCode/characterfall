@@ -1,6 +1,9 @@
 package org.academiadecodigo.bootcamp.textbasedgame;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Queue;
@@ -11,28 +14,25 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class Server {
 
+    private static final int PORT = 7000;
     final private Queue<ClientDispatcher> clientDispatchers;
 
-    public Server(){
+    public Server() {
         clientDispatchers = new ConcurrentLinkedQueue<>();
     }
 
 
-    public void startChat(){
+    public void startChat() {
         //read port to open from terminal
         BufferedReader terminalIn = new BufferedReader(new InputStreamReader(System.in));
 
         ServerSocket serverSocket = null;
         Socket clientSocket;
         ClientDispatcher clientDispatcher;
-        int port;
-
-
-        System.out.print("Port ? ");
 
         try {
-            port = Integer.parseInt(terminalIn.readLine());
-            serverSocket = new ServerSocket(port);
+
+            serverSocket = new ServerSocket(PORT);
         } catch (IOException e) {
             System.err.println(e);
         }
@@ -45,7 +45,7 @@ public class Server {
                 System.out.println("A connection to a chat client was established!");
                 Thread thread = new Thread(clientDispatcher);
                 thread.start();
-            }catch (IOException e){
+            } catch (IOException e) {
                 System.err.println(e);
             }
         }
@@ -57,74 +57,74 @@ public class Server {
         webChat.startChat();
     }
 
-    public synchronized void sendAll(String message){
-       for(ClientDispatcher clientDispatcher: clientDispatchers) {
-           clientDispatcher.send(message);
-       }
+    public synchronized void sendAll(String message) {
+        for (ClientDispatcher clientDispatcher : clientDispatchers) {
+            clientDispatcher.send(message);
+        }
     }
 
-    public void refreshClientDispatchers() throws IOException{
+    public void refreshClientDispatchers() throws IOException {
         System.out.println("-------------------BEFORE--------------------");
         //print the current elements on the list of connections #DEBUG
-        for(ClientDispatcher clientDispatcher: clientDispatchers) {
+        for (ClientDispatcher clientDispatcher : clientDispatchers) {
             System.out.println(clientDispatcher);
         }
 
 
-        for(ClientDispatcher clientDispatcher: clientDispatchers) {
-            if(!clientDispatcher.isAlive()){
-               if(clientDispatchers.remove(clientDispatcher)){
-                   System.out.println("A connection to a chat client was removed.");
-               }
+        for (ClientDispatcher clientDispatcher : clientDispatchers) {
+            if (!clientDispatcher.isAlive()) {
+                if (clientDispatchers.remove(clientDispatcher)) {
+                    System.out.println("A connection to a chat client was removed.");
+                }
             }
         }
 
         System.out.println("-------------------AFTER--------------------");
         //print the current elements on the list of connections #DEBUG
-        for(ClientDispatcher clientDispatcher: clientDispatchers) {
+        for (ClientDispatcher clientDispatcher : clientDispatchers) {
             System.out.println(clientDispatcher);
         }
 
     }
 
 
-    private class ClientDispatcher implements Runnable{
+    private class ClientDispatcher implements Runnable {
         private Socket clientSocket;
         private BufferedReader in;
         private PrintWriter out;
         private String name;
 
-        public ClientDispatcher(Socket clientSocket){
+        public ClientDispatcher(Socket clientSocket) {
             this.clientSocket = clientSocket;
             try {
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                out = new PrintWriter(clientSocket.getOutputStream(),true);
+                out = new PrintWriter(clientSocket.getOutputStream(), true);
                 askUserName();
                 tellOthersAnotherUserEnteredTheChat();
-            } catch (IOException e){
+            } catch (IOException e) {
                 System.err.println(e);
             }
         }
 
-        public void askUserName() throws IOException{
+        public void askUserName() throws IOException {
             out.println("What is your user name?");
             name = in.readLine();
-            out.println("Welcome to the chat "+name);
+            out.println("Welcome to the game " + name);
         }
 
-        public void tellOthersAnotherUserEnteredTheChat(){
-            sendAll(name+" has entered the chat.#########");
+        public void tellOthersAnotherUserEnteredTheChat() {
+            sendAll(name + " has entered the game.#########");
         }
 
         @Override
         public void run() {
             String message = null;
-            while(true){
+            while (true) {
                 try {
                     message = in.readLine();
 
-                    if(message.equals("logout")){
-                        sendAll(this.name+" has left the chat");
+                    if (message.equals("logout")) {
+                        sendAll(this.name + " has left the game.");
                         closeConnection();
                         refreshClientDispatchers();
                         break;
@@ -133,20 +133,20 @@ public class Server {
                 } catch (IOException e) {
                     System.err.println(e);
                 }
-                sendAll("<"+ name +">: "+message);
-              //  System.out.println("<"+ name +">: "+message);
+                sendAll("<" + name + ">: " + message);
+                //  System.out.println("<"+ name +">: "+message);
             }
         }
 
-        public void send(String message){
+        public void send(String message) {
             out.println(message);
         }
 
-        public void closeConnection() throws IOException{
+        public void closeConnection() throws IOException {
             clientSocket.close();
         }
 
-        public boolean isAlive(){
+        public boolean isAlive() {
             return !clientSocket.isClosed();
         }
 

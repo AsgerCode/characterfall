@@ -1,6 +1,9 @@
 package org.academiadecodigo.bootcamp.textbasedgame;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
@@ -9,8 +12,10 @@ import java.net.Socket;
 public class Client {
 
     private Socket socket;
+    private static final int PORT = 7000;
+    private static final String HOSTNAME = "localhost";
 
-    public void initializeSocket(String host, int port){
+    public void initializeSocket(String host, int port) {
         try {
             socket = new Socket(host, port);
         } catch (IOException e) {
@@ -18,24 +23,13 @@ public class Client {
         }
     }
 
-    public void startClient(){
+    public void startClient() {
         BufferedReader terminalIn = new BufferedReader(new InputStreamReader(System.in));
 
-        String host = null;
-        int port = 0;
         String message = null;
 
-        try {
-            System.out.print("Host ? ");
-            host = terminalIn.readLine();
-            System.out.print("Port ? ");
-            port = Integer.parseInt(terminalIn.readLine());
 
-        } catch (IOException e) {
-            System.err.println(e);
-        }
-
-        initializeSocket(host,port);
+        initializeSocket(HOSTNAME, PORT);
         BufferedReader in = null;
 
         try {
@@ -50,7 +44,7 @@ public class Client {
         while (true) {
             try {
                 message = in.readLine();
-                if(message == null){
+                if (message == null) {
                     return;
                 }
             } catch (IOException e) {
