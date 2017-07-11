@@ -1,25 +1,25 @@
 package org.academiadecodigo.bootcamp.textbasedgame;
 
-import org.academiadecodigo.bootcamp.textbasedgame.view.Cell;
-
 /**
  * Created by codecadet on 11/07/2017.
  */
 public class Player {
 
     private String name = "";
-    private Cell position;
+    private int col;
+    private int row;
 
-    public Player(String name, Cell position) {
+    public Player(String name, int col, int row) {
         this.name = name;
-        this.position = position;
+        this.col = col;
+        this.row = 0;
     }
 
-    public void validatePosition(){
+    public void validatePosition() {
         return;
     }
 
-    public void move(){
+    public void move() {
         return;
     }
 }
