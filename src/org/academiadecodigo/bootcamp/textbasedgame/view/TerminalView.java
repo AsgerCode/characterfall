@@ -51,4 +51,8 @@ public class TerminalView {
     public void removeCharacters() {
         return;
     }
+
+    public char getCellChar(int col, int row){
+        return fieldGrid[col][row].getCharacter();
+    }
 }
