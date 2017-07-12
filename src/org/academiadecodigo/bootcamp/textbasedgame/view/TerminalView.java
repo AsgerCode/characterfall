@@ -1,23 +1,26 @@
 package org.academiadecodigo.bootcamp.textbasedgame.view;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class TerminalView {
 
     private Cell[][] fieldGrid;
     private final int COLSIZE = 50;
     private final int ROWSIZE = 30;
-    private final String path = "/Users/codecadet/workgroup/textbasedgame/resources/gametext.txt";
+    private final String PATH = "/Users/codecadet/workgroup/textbasedgame/resources/gametext.txt";
 
     public TerminalView(int cols, int rows) throws IOException {
 
         this.fieldGrid = new Cell[cols][rows];
-        createCells(path);
+        createCells(PATH);
         generateField();
 
     }
 
-    public void createCells(String path) throws IOException{
+    public void createCells(String path) throws IOException {
 
         BufferedReader bf = new BufferedReader(new FileReader(new File(path)));
 
@@ -29,7 +32,7 @@ public class TerminalView {
     }
 
 
-    public void generateField(){
+    public void generateField() {
         for (int col = 0; col < COLSIZE; col++) {
             for (int row = 0; row < ROWSIZE; row++) {
                 System.out.print(fieldGrid[col][row].getCharacter());
@@ -37,15 +40,15 @@ public class TerminalView {
         }
     }
 
-    public void characterSelect(){
+    public void characterSelect() {
         return;
     }
 
-    public void readLevel(){
+    public void readLevel() {
         return;
     }
 
-    public void removeCharacters(){
+    public void removeCharacters() {
         return;
     }
 }

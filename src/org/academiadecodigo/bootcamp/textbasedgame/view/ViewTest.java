@@ -5,15 +5,15 @@ package org.academiadecodigo.bootcamp.textbasedgame.view;
  */
 public class ViewTest {
 
-    public void setLinesColor(){
+    public void setLinesColor() {
         return;
     }
 
-    public void checkCharacterSpaces(){
+    public void checkCharacterSpaces() {
         return;
     }
 
-    public void setCharacterPosition(){
+    public void setCharacterPosition() {
         return;
     }
 }

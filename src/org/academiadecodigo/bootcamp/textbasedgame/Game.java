@@ -9,12 +9,9 @@ public class Game {
 
     private TerminalView terminalview;
 
-    public void start(){
+    public void start() {
         return;
     }
-
-
-
 
 
 }

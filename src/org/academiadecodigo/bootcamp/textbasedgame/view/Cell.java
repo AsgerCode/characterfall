@@ -1,11 +1,12 @@
 package org.academiadecodigo.bootcamp.textbasedgame.view;
+
 public class Cell {
 
     private int col;
     private int row;
     private char character;
 
-    public Cell(int col, int row, char character){
+    public Cell(int col, int row, char character) {
         this.col = col;
         this.row = row;
         this.character = character;
