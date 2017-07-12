@@ -15,11 +15,20 @@ public class Player {
         this.row = 0;
     }
 
-    public void validatePosition() {
-        return;
+    public boolean validatePosition() {
+        if (row - 1 == "") {
+            return false;
+        }
+
+        return true;
     }
 
     public void move() {
+        if (validatePosition()) {
+            row -= 1;
+            return;
+        }
+
         return;
     }
 }
