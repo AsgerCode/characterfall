@@ -1,5 +1,7 @@
 package org.academiadecodigo.bootcamp.textbasedgame.serverclient;
 
+import org.academiadecodigo.bootcamp.textbasedgame.view.TerminalView;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Queue;
+import java.util.Scanner;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
@@ -16,6 +19,7 @@ public class Server {
 
     private static final int PORT = 7000;
     final private Queue<ClientDispatcher> clientDispatchers;
+    private TerminalView terminalView;
 
     public Server() {
         clientDispatchers = new ConcurrentLinkedQueue<>();
@@ -45,6 +49,7 @@ public class Server {
                 System.out.println("A connection to a chat client was established!");
                 Thread thread = new Thread(clientDispatcher);
                 thread.start();
+
             } catch (IOException e) {
                 System.err.println(e);
             }
@@ -101,9 +106,22 @@ public class Server {
                 out = new PrintWriter(clientSocket.getOutputStream(), true);
                 askUserName();
                 tellOthersAnotherUserEnteredTheChat();
+
+                while (true){
+                    terminalView.removeCharacters(playerInput());
+                }
+
             } catch (IOException e) {
                 System.err.println(e);
             }
+        }
+
+        private char playerInput() {
+
+            Scanner sc = new Scanner(System.in);
+            char input = sc.next().charAt(0);
+
+            return input;
         }
 
         public void askUserName() throws IOException {

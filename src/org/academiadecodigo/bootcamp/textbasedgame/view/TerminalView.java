@@ -10,7 +10,7 @@ public class TerminalView {
     private Cell[][] fieldGrid;
     private final int COLSIZE = 20;
     private final int ROWSIZE = 10;
-    private final String PATH = "/Users/codecadet/workgroup/textbasedgame/resources/gametext.txt";
+    private final String PATH = "/Users/codecadet/personaldev/textbasedgame/resources/gametext.txt";
 
     public TerminalView() throws IOException {
 
