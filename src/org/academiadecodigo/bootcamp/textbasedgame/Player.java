@@ -20,14 +20,14 @@ public class Player {
         this.row = 0;
 
         try {
-            terminalView = new TerminalView(col, row);
+            terminalView = new TerminalView();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public boolean validatePosition(int col, int row) {
-        if (terminalView.getCellChar(col, row) == ' ') {
+        if (terminalView.getCellChar(col, row) == ' '){
             return true;
         }
 
@@ -40,7 +40,7 @@ public class Player {
 
             case "UP":
 
-                if (validatePosition(col, row +1)) {
+                if (validatePosition(col, row + 1)) {
                     row += 1;
                     return true;
                 }
@@ -49,7 +49,7 @@ public class Player {
 
             case "DOWN":
 
-                if (validatePosition(col, row +1)) {
+                if (validatePosition(col, row + 1)) {
                     row -= 1;
                     return true;
                 }
@@ -58,7 +58,7 @@ public class Player {
 
             case "LEFT":
 
-                if (validatePosition(col, row +1)) {
+                if (validatePosition(col, row + 1)) {
                     col += 1;
                     return true;
                 }
@@ -67,10 +67,14 @@ public class Player {
 
             case "RIGHT":
 
-                if (validatePosition(col, row +1)) {
+                if (validatePosition(col, row + 1)) {
                     col -= 1;
                     return true;
                 }
+
+                return false;
+
+            default:
 
                 return false;
 
