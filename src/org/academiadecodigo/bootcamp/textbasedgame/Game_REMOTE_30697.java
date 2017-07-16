@@ -32,17 +32,10 @@ public class Game {
             terminalview.printGrid();
             startPLayerTurn(playerOne);
 
-<<<<<<< HEAD
-            terminalview.generateField();
-            server.startChat();
-            client.startClient();
-
-=======
 
             //terminalview.generateField();
            // server.startChat();
             //client.startClient();
->>>>>>> origin/gameplay
         } catch (IOException e) {
             e.printStackTrace();
         }

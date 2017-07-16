@@ -24,6 +24,7 @@ public class Client {
     }
 
     public void startClient() {
+
         BufferedReader terminalIn = new BufferedReader(new InputStreamReader(System.in));
 
         String message = null;
