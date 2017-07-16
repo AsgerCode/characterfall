@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.textbasedgame.view;
+package org.academiadecodigo.bootcamp.characterfall.view;
 import com.diogonunes.jcdp.color.ColoredPrinter;
 import com.diogonunes.jcdp.color.api.Ansi;
 

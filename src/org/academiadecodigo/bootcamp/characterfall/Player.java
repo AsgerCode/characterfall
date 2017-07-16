@@ -1,8 +1,4 @@
-package org.academiadecodigo.bootcamp.textbasedgame;
-
-import org.academiadecodigo.bootcamp.textbasedgame.view.TerminalView;
-
-import java.io.IOException;
+package org.academiadecodigo.bootcamp.characterfall;
 
 /**
  * Created by codecadet on 11/07/2017.

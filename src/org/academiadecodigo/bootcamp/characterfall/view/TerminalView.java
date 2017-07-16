@@ -1,7 +1,6 @@
-package org.academiadecodigo.bootcamp.textbasedgame.view;
+package org.academiadecodigo.bootcamp.characterfall.view;
 
 import com.diogonunes.jcdp.color.api.Ansi;
-
 import java.io.*;
 import java.util.Scanner;
 

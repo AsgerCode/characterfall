@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.textbasedgame.view;
+package org.academiadecodigo.bootcamp.characterfall.view;
 
 import java.io.*;
 

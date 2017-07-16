@@ -1,6 +1,6 @@
-package org.academiadecodigo.bootcamp.textbasedgame.serverclient;
+package org.academiadecodigo.bootcamp.characterfall.serverclient;
 
-import org.academiadecodigo.bootcamp.textbasedgame.view.TerminalView;
+import org.academiadecodigo.bootcamp.characterfall.view.TerminalView;
 
 import java.io.BufferedReader;
 import java.io.IOException;

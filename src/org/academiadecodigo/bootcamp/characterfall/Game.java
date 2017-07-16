@@ -1,8 +1,8 @@
-package org.academiadecodigo.bootcamp.textbasedgame;
+package org.academiadecodigo.bootcamp.characterfall;
 
-import org.academiadecodigo.bootcamp.textbasedgame.serverclient.Client;
-import org.academiadecodigo.bootcamp.textbasedgame.serverclient.Server;
-import org.academiadecodigo.bootcamp.textbasedgame.view.TerminalView;
+import org.academiadecodigo.bootcamp.characterfall.serverclient.Client;
+import org.academiadecodigo.bootcamp.characterfall.serverclient.Server;
+import org.academiadecodigo.bootcamp.characterfall.view.TerminalView;
 
 import java.io.IOException;
 
@@ -32,17 +32,11 @@ public class Game {
             terminalview.printGrid();
             startPLayerTurn(playerOne);
 
-<<<<<<< HEAD
-            terminalview.generateField();
+            terminalview.generateTextField();
             server.startChat();
             client.startClient();
 
-=======
 
-            //terminalview.generateField();
-           // server.startChat();
-            //client.startClient();
->>>>>>> origin/gameplay
         } catch (IOException e) {
             e.printStackTrace();
         }

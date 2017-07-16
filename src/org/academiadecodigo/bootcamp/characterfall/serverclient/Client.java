@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.textbasedgame.serverclient;
+package org.academiadecodigo.bootcamp.characterfall.serverclient;
 
 import java.io.BufferedReader;
 import java.io.IOException;

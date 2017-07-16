@@ -1,6 +1,6 @@
-package org.academiadecodigo.bootcamp.textbasedgame.tests;
+package org.academiadecodigo.bootcamp.characterfall.tests;
 
-import org.academiadecodigo.bootcamp.textbasedgame.Game;
+import org.academiadecodigo.bootcamp.characterfall.Game;
 
 public class Main {
 
