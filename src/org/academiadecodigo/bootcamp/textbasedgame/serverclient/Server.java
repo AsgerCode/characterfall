@@ -108,7 +108,7 @@ public class Server {
                 tellOthersAnotherUserEnteredTheChat();
 
                 while (true){
-                    terminalView.removeCharacters(playerInput());
+                   // terminalView.removeCharacters(playerInput());
                 }
 
             } catch (IOException e) {

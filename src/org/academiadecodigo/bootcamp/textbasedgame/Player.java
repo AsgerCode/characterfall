@@ -9,27 +9,35 @@ import java.io.IOException;
  */
 public class Player {
 
-    private String name = "";
+    private String name;
     private int col;
     private int row;
-    private TerminalView terminalView;
+    private String character;
 
-    public Player(String name, int col) {
+    public Player(String name, int col, String character) {
         this.name = name;
         this.col = col;
-        this.row = 0;
+        this.row = 3;
+        this.character = character;
 
-        try {
-            terminalView = new TerminalView();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    }
+
+    public int getCol(){
+        return col;
+    }
+
+    public int getRow(){
+        return row;
+    }
+
+    public String getCharacter(){
+        return character;
     }
 
     public boolean validatePosition(int col, int row) {
-        if (terminalView.getCellChar(col, row) == ' '){
-            return true;
-        }
+        //if (terminalView.getCellChar(col, row) == ' '){
+        //    return true;
+        //}
 
         return false;
     }

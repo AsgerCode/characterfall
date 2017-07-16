@@ -4,9 +4,9 @@ public class Cell {
 
     private int col;
     private int row;
-    private char character;
+    private String character;
 
-    public Cell(int col, int row, char character) {
+    public Cell(int col, int row, String character) {
         this.col = col;
         this.row = row;
         this.character = character;
@@ -20,7 +20,7 @@ public class Cell {
         return row;
     }
 
-    public char getCharacter() {
+    public String getCharacter() {
         return character;
     }
 
@@ -33,7 +33,7 @@ public class Cell {
         this.row = row;
     }
 
-    public void setCharacter(char character) {
+    public void setCharacter(String character) {
         this.character = character;
     }
 }

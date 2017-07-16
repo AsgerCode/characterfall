@@ -12,22 +12,61 @@ import java.io.IOException;
 public class Game {
 
     private TerminalView terminalview;
+    private Player playerOne;
+    private Player playerTwo;
     private Client client;
     private Server server;
 
     public void start() {
-        try {
-            server = new Server();
-            client = new Client();
-            terminalview = new TerminalView();
+        boolean endGame = false;
 
-            terminalview.generateField();
-            server.startChat();
-            client.startClient();
+        try {
+          //  server = new Server();
+          //  client = new Client();
+            terminalview = new TerminalView();
+            playerOne = new Player("Piriquito",2,"\u00a9");
+            playerTwo = new Player("Gafanhoto",92,"\u00A5");
+
+            terminalview.populatePlayer(playerOne.getCol(), playerOne.getRow(), playerOne.getCharacter());
+            terminalview.populatePlayer(playerTwo.getCol(),playerTwo.getRow(),playerTwo.getCharacter());
+            terminalview.printGrid();
+            startPLayerTurn(playerOne);
+
+
+            //terminalview.generateField();
+           // server.startChat();
+            //client.startClient();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void startPLayerTurn(Player player){
+        String playerInput = terminalview.terminalInputReader();
+        if(playerInput != null && playerInput.length() > 1){
+            setPlayerMessage("Wrong user input. Insert again.");
+
+            //System.out.println("\u001b[2J");
+            terminalview.printGrid();
+            startPLayerTurn(player);
+        }
+
+        updateGridWithPlayerChoice(playerInput);
+
+    }
+
+    public void setPlayerMessage(String message){
+        terminalview.setRowMessage(message);
+    }
+
+    public void updateGridWithPlayerChoice(String playerInput){
+        terminalview.printLogo();
+        terminalview.removeCharacters(playerInput);
+        terminalview.updateGridWithPlayerChoice();
+        terminalview.printGrid();
+    }
+
+
 
 
 }

@@ -1,79 +1,189 @@
 package org.academiadecodigo.bootcamp.textbasedgame.view;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import com.diogonunes.jcdp.color.api.Ansi;
+
+import java.io.*;
+import java.util.Scanner;
 
 public class TerminalView {
 
     private Cell[][] fieldGrid;
-    private final int COLSIZE = 20;
-    private final int ROWSIZE = 10;
-    private final String PATH = "/Users/codecadet/personaldev/textbasedgame/resources/gametext.txt";
+    private final int COLSIZE = 184;
+    private final int ROWSIZE = 20;
+    private final String PATH = "resources/gametext.txt";
+    private final String LOGO_PATH = "resources/logo.txt";
+    private final String CHARACTERS_TO_COLOR = "/_\\|";
+    private ColorPrinter colorPrinter;
+    Scanner scanner = new Scanner(System.in);
+    private final int INITIAL_PLAYER_ROW = 3;
+
 
     public TerminalView() throws IOException {
 
+        colorPrinter = new ColorPrinter();
         this.fieldGrid = new Cell[COLSIZE][ROWSIZE];
-        createCells(PATH);
-        generateField();
-
+        printLogo();
+        createCells();
+        setRowMessage("Enter your nickname: ");
+        generateTextField();
     }
 
-    public void createCells(String path) throws IOException {
+    public void printLogo() {
 
-        BufferedReader bf = new BufferedReader(new FileReader(new File(path)));
+        String logo = FileManager.load(LOGO_PATH);
+        colorPrinter.printCharactersWithDifferentForegroundColor(Ansi.FColor.CYAN, logo, CHARACTERS_TO_COLOR);
+    }
+
+    public void populatePlayer(int col, int row, String character) {
+        if (col < (COLSIZE / 2)) {
+            col = (int) (Math.random() * ((COLSIZE - 1) / 2)) + 2;
+        } else {
+            col = (int) (Math.random() * ((COLSIZE - 1 - (COLSIZE - 1) / 2)) + (COLSIZE - 1) / 2);
+        }
+
+        fieldGrid[col][row].setCharacter(character);
+    }
+
+    public void createCells() throws IOException {
 
         for (int row = 0; row < ROWSIZE; row++) {
             for (int col = 0; col < COLSIZE; col++) {
 
-                fieldGrid[col][row] = new Cell(col, row, (char) bf.read());
+                fieldGrid[col][row] = new Cell(col, row, " ");
             }
         }
+        generateFieldOutline();
     }
 
-
-    public void generateField() {
+    public void printGrid() {
 
         for (int row = 0; row < ROWSIZE; row++) {
             for (int col = 0; col < COLSIZE; col++) {
 
-                if (fieldGrid[col][row].getCharacter() == '\n'){
-                    fieldGrid[col][row].setCharacter(' ');
+                if (row == INITIAL_PLAYER_ROW) {
+                    if (fieldGrid[col][row].getCharacter().matches("\u00A9")) {
+                        colorPrinter.printCharactersWithDifferentBackgroundColor(Ansi.BColor.RED, " ", " ");
+                    } else if (fieldGrid[col][row].getCharacter().matches("\u00A5")) {
+                        colorPrinter.printCharactersWithDifferentBackgroundColor(Ansi.BColor.BLUE, " ", " ");
+                    } else {
+                        System.out.print(fieldGrid[col][row].getCharacter());
+                    }
+
+                } else {
+                    System.out.print(fieldGrid[col][row].getCharacter());
                 }
-                System.out.print(fieldGrid[col][row].getCharacter());
-                //System.out.print("[" + col + "]" + "[" + row + "],");
             }
             System.out.println();
         }
     }
 
-    public void characterSelect() {
-        return;
-    }
+    private void generateFieldOutline() {
 
-    public void readLevel() {
-        return;
-    }
+        for (int row = 0; row < ROWSIZE; row++) {
+            for (int col = 0; col < COLSIZE; col++) {
 
-    public void removeCharacters(char character) {
-        for (int col = 0; col < COLSIZE; col++) {
-            for (int row = 0; row < ROWSIZE; row++) {
-                if (fieldGrid[col][row].getCharacter() == character) {
-                    fieldGrid[col][row].setCharacter(' ');
-                }
-
+                fieldGrid[0][0].setCharacter("+");
+                fieldGrid[col][0].setCharacter("-");
+                fieldGrid[COLSIZE - 1][0].setCharacter("+");
+                fieldGrid[0][1].setCharacter("|");
+                fieldGrid[0][row].setCharacter("|");
+                fieldGrid[col][1].setCharacter(" ");
+                fieldGrid[0][2].setCharacter("+");
+                fieldGrid[col][2].setCharacter("-");
+                fieldGrid[COLSIZE - 1][2].setCharacter("+");
+                fieldGrid[COLSIZE - 1][1].setCharacter("|");
+                fieldGrid[COLSIZE - 1][row].setCharacter("|");
+                fieldGrid[0][ROWSIZE - 1].setCharacter("+");
+                fieldGrid[col][ROWSIZE - 1].setCharacter("-");
+                fieldGrid[COLSIZE - 1][ROWSIZE - 1].setCharacter("+");
+                fieldGrid[0][ROWSIZE - 3].setCharacter("+");
+                fieldGrid[col][ROWSIZE - 3].setCharacter("-");
+                fieldGrid[COLSIZE - 1][ROWSIZE - 3].setCharacter("+");
             }
         }
-        generateField();
-
+        fieldGrid[COLSIZE / 2][2].setCharacter("|");
     }
 
-    public char getCellChar(int col, int row) {
-        return fieldGrid[col][row].getCharacter();
+
+    public void generateTextField() {
+
+        BufferedReader bf = null;
+        try {
+            bf = new BufferedReader(new FileReader(new File(PATH)));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        int character;
+        String symbol = "";
+        for (int row = 4; row < ROWSIZE - 1; row++) {
+            for (int col = 2; col < COLSIZE - 2; col++) {
+
+                try {
+
+                    if ((character = bf.read()) != -1) {
+                        symbol = Character.toString((char) character);
+                        if (symbol.equals(" ")) {
+                            fieldGrid[col][row].setCharacter("_");
+                        } else {
+                            fieldGrid[col][row].setCharacter(symbol);
+                        }
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (fieldGrid[col][row].getCharacter().equals("\n")) {
+                    fieldGrid[col][row].setCharacter("_");
+                }
+            }
+        }
     }
 
-    public void removeTextNewLine(){
-        return;
+    public String terminalInputReader() {
+
+        return scanner.nextLine();
+    }
+
+    public void setRowMessage(String message) {
+
+        for (int col = 0; col < message.length(); col++) {
+            fieldGrid[col + 2][ROWSIZE - 2].setCharacter(message.substring(col, col + 1));
+        }
+    }
+
+    public void removeCharacters(String character) {
+        for (int row = 4; row < ROWSIZE - 1; row++) {
+            for (int col = 2; col < COLSIZE - 2; col++) {
+                if (fieldGrid[col][row].getCharacter().equals(character)) {
+                    fieldGrid[col][row].setCharacter("");
+                }
+            }
+        }
+    }
+
+    public void updateGridWithPlayerChoice() {
+        for (int row = ROWSIZE - 3; row > 4; --row) {
+            for (int col = COLSIZE - 2; col > 2; --col) {
+                if (!fieldGrid[col][row].getCharacter().equals(" ")) {
+
+                    pullCharactersDown(col, row);
+                }
+            }
+        }
+    }
+
+    private void pullCharactersDown(int col, int row) {
+        String character;
+        for (int i = row; i > 5; --i) {
+
+            character = fieldGrid[col][i - 1].getCharacter();
+
+            if (!character.equals(" ")) {
+                fieldGrid[col][i].setCharacter(character);
+            } else {
+                return;
+            }
+        }
     }
 }
