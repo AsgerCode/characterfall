@@ -24,6 +24,7 @@ public class Game {
             terminalview.generateField();
             server.startChat();
             client.startClient();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
